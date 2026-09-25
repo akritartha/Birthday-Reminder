@@ -1,0 +1,8 @@
+*.db
+__pycache__/
+*.pyc
+venv/
+.venv/
+.vscode/
+trial.py
+
