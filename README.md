@@ -1,5 +1,4 @@
 # Birthday-Reminder
-# Birthday Reminder
 
 A SQLite + Discord webhook birthday reminder, using the Bikram Sambat (BS) calendar via `nepali_datetime`.
 
