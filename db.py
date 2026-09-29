@@ -2,7 +2,6 @@ import sqlite3
 import sys
 import nepali_datetime
 
-
 def connect_db():
     conn = sqlite3.connect("birthday.db")
     cursor = conn.cursor()

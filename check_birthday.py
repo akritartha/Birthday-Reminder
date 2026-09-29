@@ -33,11 +33,9 @@ def check_and_notify():
     today = nepali_datetime.date.today()
     name_to_num = month_name_to_number(today.year)
 
-    rows = cursor.execute(
-        "SELECT Id, Name, Birthday, Last_Notified_Year FROM Reminder"
-    ).fetchall()
+    rows = cursor.execute("SELECT Name, Birthday FROM Reminder").fetchall()
 
-    for person_id, name, birthday_str, last_notified_year in rows:
+    for name, birthday_str in rows:
         day_str, month_name = birthday_str.split(" ", 1)
         day = int(day_str)
         month = name_to_num[month_name]
@@ -48,22 +46,14 @@ def check_and_notify():
 
         days_left = (occ - today).days
 
-        if days_left <= REMIND_WITHIN_DAYS and last_notified_year != occ.year:
+        if days_left <= REMIND_WITHIN_DAYS:
             if days_left == 0:
                 msg = f"🎂 It's **{name}'s** birthday today!"
             else:
                 msg = f"🎉 **{name}'s** birthday is in {days_left} day(s) — {birthday_str}."
-            sent = send_discord_message(msg)
-
-            if sent:
-                cursor.execute(
-                    "UPDATE Reminder SET Last_Notified_Year = ? WHERE Id = ?",
-                    (occ.year, person_id),
-                )
-                conn.commit()
+            send_discord_message(msg)
 
     conn.close()
-
 
 if __name__ == "__main__":
     check_and_notify()
