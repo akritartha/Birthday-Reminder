@@ -45,14 +45,16 @@ def check_and_notify():
             occ = nepali_datetime.date(today.year + 1, month, day)
 
         days_left = (occ - today).days
-
+        days_left_str= f"~{days_left} days"
+        cursor.execute("UPDATE Reminder SET Days_Remaining=? WHERE BIRTHDAY=?",
+                       (days_left_str,birthday_str))
         if days_left <= REMIND_WITHIN_DAYS:
             if days_left == 0:
                 msg = f"🎂 It's **{name}'s** birthday today!"
             else:
                 msg = f"🎉 **{name}'s** birthday is in {days_left} day(s) — {birthday_str}."
             send_discord_message(msg)
-
+        conn.commit()
     conn.close()
 
 if __name__ == "__main__":
