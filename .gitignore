@@ -5,4 +5,5 @@ venv/
 .venv/
 .vscode/
 trial.py
+cron.log
 

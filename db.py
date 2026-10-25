@@ -7,7 +7,6 @@ def connect_db():
     cursor = conn.cursor()
     return conn, cursor
 
-
 def create_table(conn, cursor):
     cursor.execute(
         "CREATE TABLE IF NOT EXISTS Reminder ("
@@ -19,12 +18,10 @@ def create_table(conn, cursor):
     )
     conn.commit()
 
-
 def read_lines():
     print("Paste your entire birthday list, then press Ctrl+D when done:")
     raw_text = sys.stdin.read()
     return raw_text
-
 
 def add_to_db(conn, cursor):
     lines = read_lines().splitlines()
